@@ -54,6 +54,7 @@ typedef struct str_inimigo
     int posicaox;
     int posicaoy;
 } TIPO_inimigo;
+
 typedef struct str_tiro
 {
     int posicaox;
@@ -61,22 +62,22 @@ typedef struct str_tiro
 } TIPO_tiro;
 
 
-float posy = POSICAO_BIRD; /// definição da variavel responsavel pela posição do passaro
+int posy = POSICAO_BIRD; /// definiï¿½ï¿½o da variavel responsavel pela posiï¿½ï¿½o do passaro
 TIPO_jogador jogadores[3];
 
 
 int ocorreu_colisao_mod(int posy, TIPO_cano cano, CHAR_INFO buf[][DRAW_AREA_X], TIPO_tiro tiro)
-///checa se houve colisão com as bordas, e executa uma "tela de game over"
+///checa se houve colisï¿½o com as bordas, e executa uma "tela de game over"
 {
     int i,j;
     int stop;
 
-    if (posy>25 || posy<0)///verifica se ocorreu colisão com o teto e com o chão
+    if (posy>25 || posy<0)///verifica se ocorreu colisï¿½o com o teto e com o chï¿½o
     {
         printf("\ngame over");/// se sim, game-over
         return 1;
     }
-    else if(buf[(int)posy][POSICAO_BIRD].Attributes != 67) ///verifica se ocorreu colisão com o chão
+    else if(buf[(int)posy][POSICAO_BIRD].Attributes != 67) ///verifica se ocorreu colisï¿½o com o chï¿½o
     {
         printf("\ngame over");
         return 1; /// se sim, game-over
@@ -88,7 +89,7 @@ int ocorreu_colisao_mod(int posy, TIPO_cano cano, CHAR_INFO buf[][DRAW_AREA_X], 
 }
 
 int ocorreu_colisao(int posy, TIPO_cano cano, CHAR_INFO buf[][DRAW_AREA_X] )
-///checa se houve colisão com as bordas, e executa uma "tela de game over"
+///checa se houve colisï¿½o com as bordas, e executa uma "tela de game over"
 {
     int i,j;
     int stop;
@@ -137,27 +138,28 @@ draw_quads(HANDLE console, CHAR_INFO buf[][DRAW_AREA_X], TIPO_cano cano)
 
 
 void clear_win(CHAR_INFO buf[][DRAW_AREA_X])
-///limpa o buf para fazer a mudanças dos objetos
+///limpa o buf para fazer a mudanï¿½as dos objetos
 {
     int i, j;
     for(i=0; i< DRAW_AREA_Y; i++)
         for(j=0; j< DRAW_AREA_X; j++)
         {
             buf[i][j].Char.AsciiChar = ' ';
-            buf[i][j].Attributes = 78; ///preenchendo cada espaço com a cor vermelha
+            buf[i][j].Attributes = 78; ///preenchendo cada espaï¿½o com a cor vermelha
         }
 }
 
 
 void imprime_cano_na_tela(TIPO_cano cano, CHAR_INFO buf[][DRAW_AREA_X])
-///função que faz a criação do cano
+///funï¿½ï¿½o que faz a criaï¿½ï¿½o do cano
 {
     int i,j,coluna_cima=0;
 
-    cano.coluna_cima =  cano.coluna_baixo - TAM_BURACO; /// calcula o tamanho que a coluna tem que ter para que haja um vão de 3 espaços
+    cano.coluna_cima =  cano.coluna_baixo - TAM_BURACO; /// calcula o tamanho que a coluna tem que ter para que haja um vï¿½o de 3 espaï¿½os
 
-    if(cano.coluna_cima < 0)///verifica se o valor da coluna de baixo é menor que 0
-    {///caso seja
+    if(cano.coluna_cima < 0)///verifica se o valor da coluna de baixo ï¿½ menor que 0
+    {
+        ///caso seja
         cano.coluna_cima = 0; /// coluna cima recebe 0
         cano.coluna_baixo = 3;///e coluna baixo recebe 3
     }
@@ -176,7 +178,7 @@ void imprime_cano_na_tela(TIPO_cano cano, CHAR_INFO buf[][DRAW_AREA_X])
         }
 }
 void barra_lateral(CHAR_INFO buf[][DRAW_AREA_X])
-///função que mostra a barra preta lateral para mostrar as informações
+///funï¿½ï¿½o que mostra a barra preta lateral para mostrar as informaï¿½ï¿½es
 {
     int i,j;
 
@@ -192,9 +194,10 @@ void atualiza_tela(HANDLE console_out, CHAR_INFO buf[][DRAW_AREA_X], TIPO_cano c
 ///atualiza tela
 {
 
-    ///função que valida se o passaro não colidiu com o cano
+    ///funï¿½ï¿½o que valida se o passaro nï¿½o colidiu com o cano
     if(buf[(int)posy][POSICAO_BIRD].Attributes != 47)
-    {   ///caso não
+    {
+        ///caso nï¿½o
         buf[(int)posy][POSICAO_BIRD].Char.AsciiChar = '@';///desloca o passaro na tela
         buf[(int)posy][POSICAO_BIRD].Attributes = 67;
     }
@@ -203,25 +206,25 @@ void atualiza_tela(HANDLE console_out, CHAR_INFO buf[][DRAW_AREA_X], TIPO_cano c
 
 
 
-    clear_win(buf); /// chamamento da função que limpa a tela
-    buf[(int)posy][POSICAO_BIRD].Char.AsciiChar = '@'; ///imprime o passaro para a nova posição
+    clear_win(buf); /// chamamento da funï¿½ï¿½o que limpa a tela
+    buf[(int)posy][POSICAO_BIRD].Char.AsciiChar = '@'; ///imprime o passaro para a nova posiï¿½ï¿½o
     buf[(int)posy][POSICAO_BIRD].Attributes = 67;
-    imprime_cano_na_tela(cano, buf);///chamamento da função que imprime os canos
-    barra_lateral(buf);///chamamento da função que imprime a barra lateral
+    imprime_cano_na_tela(cano, buf);///chamamento da funï¿½ï¿½o que imprime os canos
+    barra_lateral(buf);///chamamento da funï¿½ï¿½o que imprime a barra lateral
 
 
 
-    ///função que faz o dezenho na tela
-    draw_quads(console_out, buf, cano); /// chamamento da função que imprime o jogo
-    draw_text(console_out, pontuacao, 50, 3); ///chamamento da função que imprime as informações
+    ///funï¿½ï¿½o que faz o dezenho na tela
+    draw_quads(console_out, buf, cano); /// chamamento da funï¿½ï¿½o que imprime o jogo
+    draw_text(console_out, pontuacao, 50, 3); ///chamamento da funï¿½ï¿½o que imprime as informaï¿½ï¿½es
 }
 void atualiza_tela_mod(HANDLE console_out, CHAR_INFO buf[][DRAW_AREA_X], TIPO_cano cano,int pontuacao, TIPO_inimigo inimigo, TIPO_tiro tiro)
-///atualiza tela da versão modificada
+///atualiza tela da versï¿½o modificada
 {
 
-    ///função que limpa a tela
+    ///funï¿½ï¿½o que limpa a tela
     clear_win(buf);
-    ///função que valida se o passaro não colidiu com o cano
+    ///funï¿½ï¿½o que valida se o passaro nï¿½o colidiu com o cano
     if(buf[(int)posy][POSICAO_BIRD].Attributes != 47)
     {
         buf[(int)posy][POSICAO_BIRD].Char.AsciiChar = '@';
@@ -230,7 +233,7 @@ void atualiza_tela_mod(HANDLE console_out, CHAR_INFO buf[][DRAW_AREA_X], TIPO_ca
 
 
     if(buf[tiro.posicaoy][tiro.posicaox].Attributes != AMARELO && buf[tiro.posicaoy][tiro.posicaox].Char.AsciiChar != '8'&&
-       buf[inimigo.posicaoy][inimigo.posicaox-1].Attributes != 7 && buf[tiro.posicaoy][tiro.posicaox].Char.AsciiChar != '>')
+            buf[inimigo.posicaoy][inimigo.posicaox-1].Attributes != 7 && buf[tiro.posicaoy][tiro.posicaox].Char.AsciiChar != '>')
     {
         buf[tiro.posicaoy][tiro.posicaox].Char.AsciiChar = '>';
         buf[tiro.posicaoy][tiro.posicaox].Attributes = 7;
@@ -245,34 +248,34 @@ void atualiza_tela_mod(HANDLE console_out, CHAR_INFO buf[][DRAW_AREA_X], TIPO_ca
         buf[tiro.posicaoy][tiro.posicaox].Attributes = 67;
     }
 
-    ///desenha o personagem na nova posição
+    ///desenha o personagem na nova posiï¿½ï¿½o
     buf[(int)posy][POSICAO_BIRD].Char.AsciiChar = '@';
     buf[(int)posy][POSICAO_BIRD].Attributes = 67;
-    ///desenha o inimigo na nova posição
+    ///desenha o inimigo na nova posiï¿½ï¿½o
     buf[inimigo.posicaoy-1][inimigo.posicaox-1].Char.AsciiChar = '8';
     buf[inimigo.posicaoy-1][inimigo.posicaox-1].Attributes = 207;
 
     imprime_cano_na_tela(cano, buf);
     barra_lateral(buf);
 
-    ///função que faz o dezenho na tela
-    draw_quads(console_out, buf, cano);/// chamamento da função que imprime o jogo
+    ///funï¿½ï¿½o que faz o dezenho na tela
+    draw_quads(console_out, buf, cano);/// chamamento da funï¿½ï¿½o que imprime o jogo
 
-    draw_text(console_out, pontuacao, 50, 3);///chamamento da função que imprime as informações
+    draw_text(console_out, pontuacao, 50, 3);///chamamento da funï¿½ï¿½o que imprime as informaï¿½ï¿½es
 }
 
 
 float move_bird(float posy, float *velocidade)
-///função que faz a gravidade agir sobre o passaro
+///funï¿½ï¿½o que faz a gravidade agir sobre o passaro
 {
     *velocidade = *velocidade * 1.1; ///calcula a velocidade
-    posy =  posy + *velocidade;///soma a velocidade a posição do passaro
+    posy =  posy + *velocidade;///soma a velocidade a posiï¿½ï¿½o do passaro
 
-    return posy; ///retorna a nova posição
+    return posy; ///retorna a nova posiï¿½ï¿½o
 }
 
 int aleatorio(TIPO_cano cano, CHAR_INFO buf[][DRAW_AREA_X])
-///função que gera o numero aleatorio
+///funï¿½ï¿½o que gera o numero aleatorio
 {
     int i, j, coluna_baixo;
     cano.coluna_baixo = clock()%14 +1;
@@ -283,17 +286,17 @@ int aleatorio(TIPO_cano cano, CHAR_INFO buf[][DRAW_AREA_X])
 
 
 int faz_pontuacao(TIPO_cano cano, int *pontuacao)
-///função que imcrementa a pontuação
+///funï¿½ï¿½o que imcrementa a pontuaï¿½ï¿½o
 {
     if(cano.posicaoX == POSICAO_BIRD)
     {
         (*pontuacao)++;
     }
-    return *pontuacao; ///retorna a nova pontuação
+    return *pontuacao; ///retorna a nova pontuaï¿½ï¿½o
 }
 
 draw_text(HANDLE output, int pontuacao, int x, int y)
-///função que imprime as informações na tela
+///funï¿½ï¿½o que imprime as informaï¿½ï¿½es na tela
 {
     setlocale(LC_ALL, "Portuguese");
     COORD coord = {(SHORT)48, (SHORT)0};
@@ -303,15 +306,27 @@ draw_text(HANDLE output, int pontuacao, int x, int y)
 }
 
 void grava_tresmaiores()
-///função que grava os tres maiores valores e o nome de cada um deles
+///funï¿½ï¿½o que grava os tres maiores valores e o nome de cada um deles
 {
-    TIPO_jogador jogador[3];
+    TIPO_jogador jogador_aux;
+    jogador_aux.pontuacao = 0;
     FILE *arq2;
-    char auxl[NOME];
-
+    int i,j;
+    for(i = 0; i<3; i++)
+    {
+        for(j = 0; j<3; j++)
+        {
+            if(jogadores[i].pontuacao <= jogadores[j].pontuacao)
+            {
+                jogador_aux = jogadores[i];
+                jogadores[i] = jogadores[j];
+                jogadores[j] = jogador_aux;
+            }
+        }
+    }
     if(!(arq2 = fopen("ranqueV1.bin", "wb"))) ///verifica se abriu
-        printf("Falha ao abrir o arquivo para gravação"); /// se ocorreu falha
-    else///se não
+        printf("Falha ao abrir o arquivo para gravaï¿½ï¿½o"); /// se ocorreu falha
+    else///se nï¿½o
     {
         if(!fwrite(jogadores, sizeof(TIPO_jogador), 3, arq2))///escreve
         {
@@ -323,7 +338,7 @@ void grava_tresmaiores()
 }
 
 void salvadadosV1(int pontuacaoV1)
-///salva a pontuação do jogo normal
+///salva a pontuaï¿½ï¿½o do jogo normal
 {
     int pontuacaoOriginal;
     FILE *arquivo_para_salvarV1;
@@ -360,7 +375,7 @@ void salvadadosV1(int pontuacaoV1)
 }
 
 int entra_jogo(CHAR_INFO buf[][DRAW_AREA_X])
-///função que da inicio ao jogo
+///funï¿½ï¿½o que da inicio ao jogo
 {
     // TIPO_jogador jogador;
     // jogador.pontuacao = 0;
@@ -380,22 +395,22 @@ int entra_jogo(CHAR_INFO buf[][DRAW_AREA_X])
 
     cano1.coluna_baixo = aleatorio(cano1, buf); ///adiciona um valor aleatorio a coluna baixo
     atualiza_tela(console_out, buf, cano1, pontuacao);///imprime a tela
-    printf("aperte qualquer botão para jogar");
+    printf("aperte qualquer botï¿½o para jogar");
     scanf(" %c", &aperta);
-    while(!ocorreu_colisao((int)posy,  cano1, buf))///começa o loop e verifica se ocorreu colisão
+    while(!ocorreu_colisao((int)posy,  cano1, buf))///comeï¿½a o loop e verifica se ocorreu colisï¿½o
     {
-        faz_pontuacao(cano1,&pontuacao); /// faz a pontuação do jogador
+        faz_pontuacao(cano1,&pontuacao); /// faz a pontuaï¿½ï¿½o do jogador
         Sleep(TEMPOCAIR); /// para o programa
         cano1.posicaox -= 1; ///decrementa o inicio do cano
         cano1.posicaoX -= 1;///decrementa o fim do cano
 
-        if(_kbhit())///testa se algum botão foi precionado
+        if(_kbhit())///testa se algum botï¿½o foi precionado
         {
             c = _getch();
-            if (c== ' ') /// verifica se o retorno da função getch é igual a espaço
+            if (c== ' ') /// verifica se o retorno da funï¿½ï¿½o getch ï¿½ igual a espaï¿½o
             {
                 posy -=1;///se for, faz o pulo
-                aceleracao = 0.1;/// e "zera" a aceleração
+                aceleracao = 0.1;/// e "zera" a aceleraï¿½ï¿½o
             }
         }
         else
@@ -403,12 +418,12 @@ int entra_jogo(CHAR_INFO buf[][DRAW_AREA_X])
             posy = move_bird(posy, &aceleracao); ///caso contrario faz a "gravidade"
         }
         if(cano1.posicaox < 0)
-            ///verifica se cano inicio é menor que 0
+            ///verifica se cano inicio ï¿½ menor que 0
         {
             cano1.posicaox = 0; ///se sim, mantem o cano em zero
         }
         if(cano1.posicaoX == 0)
-        ///verifica se cano fim é menor que 0
+            ///verifica se cano fim ï¿½ menor que 0
         {
             cano1.posicaox = POSICAO_DO_CANO_inicio;   ///zera cano inicio
             cano1.posicaoX = POSICAO_DO_CANO_fim;       ///zera cano fim
@@ -418,12 +433,12 @@ int entra_jogo(CHAR_INFO buf[][DRAW_AREA_X])
 
         atualiza_tela(console_out, buf, cano1, pontuacao);///atualiza a tela
     }
-    salvadadosV1(pontuacao); ///chama a função para salvamento
-    return pontuacao; ///retorna a pontuação
+    salvadadosV1(pontuacao); ///chama a funï¿½ï¿½o para salvamento
+    return pontuacao; ///retorna a pontuaï¿½ï¿½o
 }
 
 int entra_jogo_mod(CHAR_INFO buf[][DRAW_AREA_X])
-///função que da inicio ao jogo
+///funï¿½ï¿½o que da inicio ao jogo
 {
     // TIPO_jogador jogador;
     // jogador.pontuacao = 0;
@@ -445,8 +460,8 @@ int entra_jogo_mod(CHAR_INFO buf[][DRAW_AREA_X])
     inimigo.posicaoy = aleatorio(cano1, buf);///     adiciona um valor aleatorio referente a altura
 
     cano1.coluna_baixo = aleatorio(cano1, buf); /// adiciona um valor aleatorio referente a o cano baixo
-    tiro.posicaox = 53; ///inicia o tiro na posiçãox
-    tiro.posicaoy = 2; ///inicia o tiro na posiçãoy
+    tiro.posicaox = 53; ///inicia o tiro na posiï¿½ï¿½ox
+    tiro.posicaoy = 2; ///inicia o tiro na posiï¿½ï¿½oy
     atualiza_tela_mod(console_out, buf, cano1, pontuacao, inimigo, tiro);
     while(!ocorreu_colisao_mod((int)posy,  cano1, buf, tiro))
     {
@@ -482,9 +497,9 @@ int entra_jogo_mod(CHAR_INFO buf[][DRAW_AREA_X])
             }
             if(c == 'w')
             {
-               // printf("fdasklfkj");
-                tiro.posicaox = POSICAO_BIRD + 1; ///adiciona a posição do passaro a posição x do tiro
-                tiro.posicaoy = (int)posy; ///adiciona a posição do passaro a posição y do tiro
+                // printf("fdasklfkj");
+                tiro.posicaox = POSICAO_BIRD + 1; ///adiciona a posiï¿½ï¿½o do passaro a posiï¿½ï¿½o x do tiro
+                tiro.posicaoy = (int)posy; ///adiciona a posiï¿½ï¿½o do passaro a posiï¿½ï¿½o y do tiro
             }
 
 
@@ -505,7 +520,7 @@ int entra_jogo_mod(CHAR_INFO buf[][DRAW_AREA_X])
             tiro.posicaox = POSICAO_DO_CANO_fim;
         }
 
-        ///valida se o cano mais perto do ponto 0 é menor que zero
+        ///valida se o cano mais perto do ponto 0 ï¿½ menor que zero
         if(cano1.posicaox < 0)
         {
             cano1.posicaox = 0;
@@ -534,8 +549,8 @@ int entra_jogo_mod(CHAR_INFO buf[][DRAW_AREA_X])
     }
     printf("\ndigite uma sigla que lhe represente");
     gets(nome);
-    grava_tresmaiores(pontuacao, nome);///chama a função para o salvamento dos tres maiores records
-    return pontuacao; ///retorna pontuação
+    grava_tresmaiores(pontuacao, nome);///chama a funï¿½ï¿½o para o salvamento dos tres maiores records
+    return pontuacao; ///retorna pontuaï¿½ï¿½o
 }
 
 void imprime_jogadores()///imprime todos os jogadores salvos
@@ -546,12 +561,12 @@ void imprime_jogadores()///imprime todos os jogadores salvos
     {
         printf("\nnome :");
         puts(jogadores[i].nome);
-        printf("\npontuação: %d",jogadores[i].pontuacao);
+        printf("\npontuaï¿½ï¿½o: %d",jogadores[i].pontuacao);
     }
 }
 
 void le_tresmaiores()
-///função que le os tres maiores records
+///funï¿½ï¿½o que le os tres maiores records
 {
     TIPO_jogador jogador;
     FILE *arq2;
@@ -568,7 +583,7 @@ void le_tresmaiores()
         {
             if(!(fread(jogadores, sizeof(TIPO_jogador), 3, arq2)))
             {
-                printf("Não foi possivel ler");
+                printf("Nï¿½o foi possivel ler");
             }
 
         }
@@ -576,8 +591,8 @@ void le_tresmaiores()
     }
 }
 
-int jogo_normal()
-///função que chama a função para iniciar o jogo normal
+void jogo_normal()
+///funï¿½ï¿½o que chama a funï¿½ï¿½o para iniciar o jogo normal
 {
     setlocale(LC_ALL, "Portuguese");
     TIPO_jogador jogador;
@@ -587,34 +602,45 @@ int jogo_normal()
     int posicao;
     char pergunta1;
     char pergunta2;
+    int recomecar = 1;
 
     do
     {
         jogador.pontuacao = entra_jogo(buf);
         le_tresmaiores();
-        do
+        printf("\nsua pontuacao e: %d\n", jogador.pontuacao);
+        printf("Deseja recomeï¿½ar o jogo?\n");
+        fflush(stdin);
+
+        while(pergunta1 != 'N' && pergunta1 != 'S')
         {
-            printf("\nsua pontuacao e: %d\n", jogador.pontuacao);
-            printf("Deseja recomeçar o jogo?\n");
+            printf("Digite N para nao ou S para sim.\n");
             fflush(stdin);
             scanf("%c", &pergunta1);
+            pergunta1 = toupper(pergunta1);
         }
-        while(pergunta1!='s' || pergunta1!='n');
-        do
+        if(pergunta1 == 'N')
         {
-            printf("Deseja recomeçar ou salvar sua pontuacao?");
-            fflush(stdin);
-            scanf("%c", &pergunta2);
+            recomecar = 0;
         }
-        while(pergunta2!='s' || pergunta2!='n');
     }
-    while(pergunta1 == 's' || pergunta1 != 'n');
+    while(recomecar);
 
-
-    return 0;
+    printf("salvar sua pontuacao?");
+    while(pergunta2 != 'N' && pergunta2 != 'S')
+    {
+        printf("Digite N para nao ou S para sim.\n");
+        fflush(stdin);
+        scanf("%c", &pergunta2);
+        pergunta2 = toupper(pergunta2);
+    }
+    if(pergunta2 == 'S')
+        salvadadosV1(jogador.pontuacao);
 }
 
-int jogo_modificado()
+
+
+void jogo_modificado()
 {
     TIPO_jogador jogador;
     jogador.pontuacao = 0;
@@ -634,14 +660,14 @@ int jogo_modificado()
         do
         {
             printf("\nsua pontuacao e: %d\n", jogador.pontuacao);
-            printf("Deseja recomeçar o jogo?\n");
+            printf("Deseja recomeï¿½ar o jogo?\n");
             fflush(stdin);
             scanf("%c", &pergunta1);
         }
         while(pergunta1!='s' || pergunta1!='n');
         do
         {
-            printf("Deseja recomeçar ou salvar sua pontuacao?");
+            printf("Deseja recomeï¿½ar ou salvar sua pontuacao?");
             fflush(stdin);
             scanf("%c", &pergunta2);
         }
@@ -649,8 +675,6 @@ int jogo_modificado()
     }
     while(pergunta1 == 's');
 
-
-    return 0;
 }
 
 /* desliga buffering em stdout para que mensagens sejam imprimidas na
@@ -664,10 +688,10 @@ void menu();
 void gotoxymenu(int coluna, int linha, char opcao[10])
 {
     HANDLE hStdout = GetStdHandle(STD_OUTPUT_HANDLE);
-    COORD position = {coluna,linha}; ///função para otulização do gotoxy
-    ///Recupera um identificador para o dispositivo padrão especificado (entrada padrão, saída padrão, ou erro padrão).
+    COORD position = {coluna,linha}; ///funï¿½ï¿½o para otulizaï¿½ï¿½o do gotoxy
+    ///Recupera um identificador para o dispositivo padrï¿½o especificado (entrada padrï¿½o, saï¿½da padrï¿½o, ou erro padrï¿½o).
     SetConsoleCursorPosition(hStdout,position);
-    ///Para colocarmos o cursor numa dada posição da janela função do Windows.h
+    ///Para colocarmos o cursor numa dada posiï¿½ï¿½o da janela funï¿½ï¿½o do Windows.h
     printf("%s", opcao);
 }
 ///variaveis
@@ -675,11 +699,11 @@ char tecla;
 int pcimacoluna;
 int pbaixolinha = 5;
 ///////////////////////////////////////////////////////////////////////////////////
-void menu() ///função para o desenho do menu e das opções
+void menu() ///funï¿½ï¿½o para o desenho do menu e das opï¿½ï¿½es
 {
 
     system("cls"); ///limpa janela
-    system("color 0E"); ///definição das cores de texto (D) e fundo (0)
+    system("color 0E"); ///definiï¿½ï¿½o das cores de texto (D) e fundo (0)
 
     int i;
     int j;
@@ -690,25 +714,25 @@ void menu() ///função para o desenho do menu e das opções
     ///desenho do quadrado que envolve o menu
     for (i=35; i<120; i++)
 
-        gotoxymenu(i,2,"°");
+        gotoxymenu(i,2,"ï¿½");
 
     for (i=35; i<120; i++)
 
-        gotoxymenu(i,21,"°");
+        gotoxymenu(i,21,"ï¿½");
 
     for (j=3; j<21; j++)
 
-        gotoxymenu(35,j,"°");
+        gotoxymenu(35,j,"ï¿½");
 
     for (j=3; j<21; j++)
 
-        gotoxymenu(119,j,"°");
+        gotoxymenu(119,j,"ï¿½");
 
 
-    ///opções do menu
+    ///opï¿½ï¿½es do menu
     gotoxymenu(60,1, "*Menu*");
-    gotoxymenu(60,5, "Versão easy");
-    gotoxymenu(60,10, "versão até o diabo vai chorar");
+    gotoxymenu(60,5, "Versï¿½o easy");
+    gotoxymenu(60,10, "versï¿½o atï¿½ o diabo vai chorar");
     gotoxymenu(60,15,"records");
     gotoxymenu(60,20, "Sair");
 }
@@ -729,10 +753,10 @@ int main()
     grava_tresmaiores();
 
     setlocale(LC_ALL, "Portuguese");
-    gotoxymenu(50,5, ">>"); ///definição das flexas para orientação do menu
+    gotoxymenu(50,5, ">>"); ///definiï¿½ï¿½o das flexas para orientaï¿½ï¿½o do menu
     do
     {
-        menu(); ///chamda da função menu antes declarada
+        menu(); ///chamda da funï¿½ï¿½o menu antes declarada
 
         gotoxymenu(50, pbaixolinha, ">>");
         tecla = getch();
@@ -740,7 +764,7 @@ int main()
         switch(tecla)
         {
         case 72:
-            if(pbaixolinha>5) ///para a movimentação para baixo das flexas de orientação
+            if(pbaixolinha>5) ///para a movimentaï¿½ï¿½o para baixo das flexas de orientaï¿½ï¿½o
             {
                 gotoxymenu(51,pbaixolinha,"  ");
                 pbaixolinha = pbaixolinha - 5;
@@ -748,32 +772,33 @@ int main()
             }
             break;
         case 80:
-            if(pbaixolinha<20) ///para a movimentação para cima das flexas de orientação
+            if(pbaixolinha<20) ///para a movimentaï¿½ï¿½o para cima das flexas de orientaï¿½ï¿½o
             {
                 gotoxymenu(51,pbaixolinha,"  ");
                 pbaixolinha = pbaixolinha + 5;
                 gotoxymenu(51,pbaixolinha,">>");
-                ///pressionou enter para escolha das opções do menu
+                ///pressionou enter para escolha das opï¿½ï¿½es do menu
             }
             break;
-        case 13: /// caso das opções , primeira opção
+        case 13: /// caso das opï¿½ï¿½es , primeira opï¿½ï¿½o
             if(pbaixolinha==5)
             {
                 jogo_normal();
             }
-            else if(pbaixolinha==10) ///segunda opção
+            else if(pbaixolinha==10) ///segunda opï¿½ï¿½o
             {
                 jogo_modificado();
             }
-            else if(pbaixolinha==15) ///terceira opção
+            else if(pbaixolinha==15) ///terceira opï¿½ï¿½o
             {
                 imprime_jogadores();
             }
 
             else if(pbaixolinha==20) ///saida
-                system("exit");
+                exit;
             break;
         }
     }
-    while(!(tecla==13) ); ///fazer enquanto o usuario não apertar enter
+    while(!(tecla==13)); ///fazer enquanto o usuario nï¿½o apertar enter
+    exit;
 }
